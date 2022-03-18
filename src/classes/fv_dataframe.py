@@ -25,5 +25,8 @@ class FVDataFrame:
     def set_dataframe(self):
         self.dataframe = panda.read_csv(f"{self.file}", sep=self.separator)
 
+        if len(self.dataframe) == 0:
+            raise Exception("This dataframe doesn't contain data.")
+
     def get_dataframe(self):
         return self.dataframe
