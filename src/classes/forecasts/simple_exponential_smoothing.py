@@ -1,7 +1,8 @@
 from pandas import DataFrame
+from src.classes.forecasts.forecast import ForecastInterface
 
 
-class SimpleExponentialSmoothing:
+class SimpleExponentialSmoothing(ForecastInterface):
     dataframe: DataFrame
     demand_key: str
     period_key: str
@@ -16,7 +17,9 @@ class SimpleExponentialSmoothing:
         if self.alpha > 1:
             raise Exception(f"Current value of alpha is {self.alpha}, but it can't be higher than 1.")
 
-    def get(self):
+        self.set()
+
+    def set(self):
         self.dataframe['Simple_Exponential_Smoothing'] = self.dataframe[self.demand_key]
 
         i = 1

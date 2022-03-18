@@ -1,7 +1,8 @@
 from pandas import DataFrame
+from src.classes.forecasts.forecast import ForecastInterface
 
 
-class DoubleExponentialSmoothing:
+class DoubleExponentialSmoothing(ForecastInterface):
     dataframe: DataFrame
     demand_key: str
     period_key: str
@@ -21,7 +22,9 @@ class DoubleExponentialSmoothing:
         if self.beta > 1:
             raise Exception(f"Current value of beta is {self.beta}, but it can't be higher than 1.")
 
-    def get(self):
+        self.set()
+
+    def set(self):
         self.dataframe['Double_Exponential_Smoothing'] = self.dataframe[self.demand_key]
         self.dataframe['Xp'] = self.dataframe[self.demand_key]
         self.dataframe['T'] = 1
@@ -41,8 +44,6 @@ class DoubleExponentialSmoothing:
         self.dataframe['Error'] = self.dataframe[self.demand_key] - self.dataframe['Double_Exponential_Smoothing']
         self.dataframe['Absolute_Error'] = self.dataframe['Error'].abs()
         self.dataframe['Square_Error'] = pow(self.dataframe['Error'], 2)
-
-        return self.dataframe
 
     def set_beta(self, beta):
         self.beta = beta
