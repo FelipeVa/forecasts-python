@@ -12,6 +12,7 @@ if __name__ == '__main__':
     dF1 = FVDataFrame('./data/1.csv')
     fc1 = Forecast(dF1.get_dataframe())
     fc1.get_moving_average(n)
+
     indicators = fc1.get_global_indicators()
     bestECP = indicators['Average_Square_Error']
 
@@ -21,7 +22,7 @@ if __name__ == '__main__':
         fc1.get_moving_average(n)
         indicators = fc1.get_global_indicators()
 
-        print(f"Solution -> n = {n}; ECP = {indicators['Average_Square_Error']}")
+        # print(f"Solution -> n = {n}; ECP = {indicators['Average_Square_Error']}")
 
         if indicators['Average_Square_Error'] <= bestECP:
             bestN = n
